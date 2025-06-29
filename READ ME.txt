@@ -1,0 +1,83 @@
+Election Results Web Application
+Overview
+This Django project fulfills the following requirements:
+
+Display election results for any individual polling unit.
+Show summed results of all polling units under a selected Local Government Area (LGA) in Delta State (state_id: 25) using a dropdown.
+Allow entry of results for a new polling unit for all parties.
+
+Prerequisites
+
+Python 3.x
+Django (pip install django)
+MySQL Connector (pip install mysql-connector-python)
+MySQL Server
+
+Setup Instructions
+
+Unzip the Project:
+
+Extract the election_results.zip folder.
+
+
+Set Up the Database:
+
+Create a MySQL database: CREATE DATABASE bincomphptest;
+Import the SQL dump: mysql -u yourusername -p bincomphptest < bincom_test.sql
+
+
+Configure Django:
+
+Open election_results/settings.py and update the DATABASES section:DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bincomphptest',
+        'USER': 'yourusername',
+        'PASSWORD': 'yourpassword',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+
+Ensure the results app is in INSTALLED_APPS:INSTALLED_APPS = [
+    ...
+    'results',
+]
+
+
+
+
+Run Migrations:
+python manage.py makemigrations
+python manage.py migrate
+
+
+Start the Server:
+python manage.py runserver
+
+
+Access the Application:
+
+Polling Unit Results: http://localhost:8000/polling_unit/<uniqueid>/ (e.g., /polling_unit/8/)
+LGA Results: http://localhost:8000/lga_results/
+New Polling Unit: http://localhost:8000/new_polling_unit/
+
+
+
+Project Structure
+
+election_results/urls.py: Main URL routing.
+results/models.py: Database models.
+results/views.py: Logic for rendering pages.
+results/forms.py: Form for new polling unit.
+results/urls.py: App-specific URL routes.
+results/templates/results/*.html: HTML templates.
+bincom_test.sql: Database dump.
+
+Notes
+
+The application uses the provided bincom_test.sql for data.
+Only Delta State LGAs (state_id: 25) are included.
+Basic CSS is used for user-friendly display.
+The LGA results page uses a dropdown for selection.
